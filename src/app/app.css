@@ -1,0 +1,29 @@
+/*Design für Header und footer*/
+header{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  background: bisque;
+  border: 2px solid black;
+  height: 100px;
+}
+footer{
+  text-align: center;
+  background: bisque;
+  border: 2px solid black;
+  height: 50px;
+}
+
+/* Design für den Button*/
+button{
+  background-color: #ffa73f;
+  color: black;
+  border: 2px solid black;
+  margin: 10px;
+}
+
+/*Desgin wenn Keine Kategorie ausgewählt wurde*/
+.error {
+  color: red;
+}

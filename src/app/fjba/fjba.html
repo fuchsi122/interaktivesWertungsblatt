@@ -1,0 +1,66 @@
+<div #pageToSave>
+  <p><b>Bezirksfeuerwehrkommando:</b> Melk</p>
+  <p><b>Feuerwehrjugend der FF:</b> Kilb</p>
+
+  <div id="daten">
+    <table>
+      <th>Name:</th>
+      <th>Geburtstag:</th>
+      <th>Alter:</th>
+
+      <tr>
+        <td><select [(ngModel)]="auswahl">
+          @for (fj of daten(); track $index) {
+            <option [ngValue]="fj">{{ fj.name }}</option>
+          }
+        </select>
+        </td>
+        <td>{{auswahl().gebDate| date:'dd.MM.yyyy'}}</td>
+        <td>{{auswahl().alter}}</td>
+      </tr>
+      <p>Startwert: {{startpunkte(auswahl().alter)}}</p>
+    </table>
+
+    <br>
+  </div>
+
+  <div id="bahn">
+    <hr>
+    <h3>Hindernisbahn: </h3>
+    <label>Zeit: </label>
+    <input id="zeit" type="number" min="0.0" step="0.01" [(ngModel)]="zeitBahn">Sekunden
+
+    <table>
+      <th>Fehler:</th>
+      <th>Zeit:</th>
+      <th>Anzahl:</th>
+
+      @for (f of fehlerBahn(); let i = $index; track $index) {
+        <tr>
+          <td>{{ f }}</td>
+          <td>{{ fehlerpunkteBahn()[$index] }}</td>
+          <td><input type="number" min="0" step="1" [(ngModel)]="fehlerzeileBahn()[i]"></td>
+        </tr>
+      }
+    </table>
+
+    <br>
+    <button (click)="berechneBahn()">Berechnen</button>
+    @if (anzeigenBahn) {
+      <p>Gesamt Fehler: {{gesamtFehlerBahn()[1]}} ({{gesamtFehlerBahn()[0]}}Sekunden)</p>
+    }
+    <br>
+  </div>
+
+  <div id="gesamt">
+    <hr>
+    <h3>Punkte: </h3>
+    <p>{{punkteBahn() }} Punkte</p>
+
+    <br>
+  </div>
+</div>
+
+<hr>
+<button (click)="sichern()">Sichern</button>
+<button (click)="zuruecksetzten()" >Zurücksetzten</button>

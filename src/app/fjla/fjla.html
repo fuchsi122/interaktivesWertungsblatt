@@ -1,0 +1,118 @@
+<div #pageToSave>
+  <p><b>Bezirksfeuerwehrkommando:</b> Melk</p>
+  <p><b>Feuerwehrjugend der FF:</b> Kilb</p>
+
+  <div id="daten">
+    <table>
+      <th>Nr:</th>
+      <th>Name:</th>
+      <th>Geburtstag:</th>
+      <th>Alter:</th>
+
+      @for (d of nummern(); track $index) {
+        <tr>
+          <td>{{ d }}</td>
+          <td>
+            <select [(ngModel)]="auswahl()[$index]">
+              @for (fj of daten(); track $index) {
+                <option [disabled]="existiertBereits(fj)" [ngValue]="fj">{{ fj.name }}</option>
+              }
+            </select>
+          </td>
+          <td>{{ auswahl()[$index]?.gebDate | date:'dd.MM.yyyy' }}</td>
+          <td>{{ auswahl()[$index]?.alter }}</td>
+        </tr>
+      }
+      <p>Gesamtalter: {{ gesAlter() }} -> Sollzeit: {{sollzeit(gesAlter())}}</p>
+    </table>
+
+    <br>
+  </div>
+
+  <div id="bahn">
+    <hr>
+    <h3>Hindernisbahn: </h3>
+    <label>Zeit: </label>
+    <input id="zeit" type="number" min="0.0" step="0.01" [(ngModel)]="zeitBahn">Sekunden
+
+    <table>
+      <th>Fehler:</th>
+      <th>Zeit:</th>
+      @for (d of nummern(); track $index) {
+        <th>{{ d }}</th>
+      }
+      <th>∑</th>
+
+      @for (f of fehlerBahn(); let i = $index; track $index) {
+        <tr>
+          <td>{{ f }}</td>
+          <td>{{ fehlerpunkteBahn()[$index] }}</td>
+
+          @for (d of nummern(); track $index) {
+            <td><input type="number" min="0" value="0" [(ngModel)]="fehlerzeileBahn()[i][$index]"></td>
+          }
+          <td>{{ sumZeileBahn(i) }}</td>
+        </tr>
+      }
+    </table>
+
+    <br>
+    <button (click)="berechneBahn()">Berechnen</button>
+    @if (anzeigenBahn) {
+      <p>Gesamt Fehler: {{ gesamtFehlerBahn()[1] }} ({{ gesamtFehlerBahn()[0] }}Sekunden)</p>
+      <p>Punkte Hindernisbahn: {{ punkteBahn() }}</p>
+    }
+    <br>
+  </div>
+
+  <div id="staffel">
+    <hr>
+    <h3>Staffellauf: </h3>
+
+    <label>Zeit: </label>
+    <input id="zeit" type="number" min="0.0" step="0.01" [(ngModel)]="zeitStaffel">Sekunden
+
+    <table>
+      <th>Fehler:</th>
+      <th>Zeit:</th>
+      @for (d of nummern(); track $index) {
+        <th>{{ d }}</th>
+      }
+      <th>∑</th>
+
+      @for (f of fehlerStaffel(); let i = $index; track $index) {
+        <tr>
+          <td>{{ f }}</td>
+          <td>{{ fehlerpunkteStaffel()[i] }}</td>
+
+          @for (d of nummern(); track $index) {
+            <td><input type="number" min="0" value="0" [(ngModel)]="fehlerzeileStaffel()[i][$index]"></td>
+          }
+          <td>{{ sumZeileStaffel(i) }}</td>
+        </tr>
+      }
+    </table>
+
+    <br>
+    <button (click)="berechneStaffel()">Berechnen</button>
+    @if (anzeigenStaffel) {
+      <p>Gesamt Fehler: {{ gesamtFehlerStaffel()[1] }} ({{ gesamtFehlerStaffel()[0] }}Sekunden)</p>
+      <p>Punkte Staffellauf: {{ punkteStaffel() }}</p>
+    }
+    <br>
+  </div>
+
+  <div id="gesamt">
+    <hr>
+    <h3>Gesamt: </h3>
+    <p><b>Bewerbsbahn:</b> {{ punkteBahn() }} Punkte</p>
+    <p><b>Staffellauf:</b> {{ punkteStaffel() }} Punkte</p>
+    <p><b>Gesamt:</b> {{ punkteBahn() + punkteStaffel() }} Punkte</p>
+
+    <br>
+  </div>
+</div>
+
+<hr>
+<button (click)="sichern()">Sichern</button>
+<button (click)="zuruecksetzten()" >Zurücksetzten</button>

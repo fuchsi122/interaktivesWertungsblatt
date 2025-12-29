@@ -1,0 +1,29 @@
+/* Design für den Button*/
+button{
+  background-color: #ffa73f;
+  color: black;
+  border: 2px solid black;
+  margin: 10px;
+}
+
+/*Design für die Tabellen*/
+table {
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+tr{
+  border: 1px solid black;
+}
+td{
+  border: 1px solid black;
+}
+
+/*Feste Größe für die Eingabe der Fehler*/
+input {
+  width: 25px;
+}
+
+/*Feste Größe für die Eingabe der Zeit*/
+#zeit{
+  width: 50px;
+}

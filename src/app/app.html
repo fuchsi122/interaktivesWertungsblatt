@@ -1,0 +1,31 @@
+<header>
+  <h1>Wertungsblatt FJLA </h1>
+</header>
+
+@if (anz) {
+  <h2>Wähle dein Wertungsblatt</h2>
+  <select [(ngModel)]="kat">
+    <option>FJBA</option>
+    <option>FJLA</option>
+  </select>
+
+  <button (click)="auswaehlen()">Auswählen</button>
+
+  @if(error){
+    <p [ngClass]="'error'"><b>Du musst eine Kategorie auswählen!</b></p>
+  }
+}
+
+@if (this.katAuswahl() === "FJLA") {
+  <app-fjla></app-fjla>
+} @else if (this.katAuswahl() === "FJBA") {
+  <app-fjba></app-fjba>
+}
+
+@if(!anz){
+<button (click)="zurueck()">Menü</button>
+}
+
+<footer>
+  <p>©Nico Fuchs, FM 28.12.2025 (FF-Kilb)</p>
+</footer>
