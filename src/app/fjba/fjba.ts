@@ -4,13 +4,15 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FJ} from '../FJ';
 import html2canvas from 'html2canvas';
 import {jsPDF} from 'jspdf';
+import {Stopuhr} from '../stopuhr/stopuhr';
 
 @Component({
   selector: 'app-fjba',
   imports: [
     DatePipe,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    Stopuhr
   ],
   templateUrl: './fjba.html',
   styleUrl: './fjba.css',

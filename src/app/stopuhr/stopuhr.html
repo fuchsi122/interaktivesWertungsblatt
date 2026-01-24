@@ -1,0 +1,11 @@
+<a><b>Stopuhr:</b>{{ zeit() | date:'mm:ss.SSS' }}</a><br>
+
+@if (start) {
+    <button (click)="starten()">Start</button>
+    <button>Stop</button>
+} @else {
+  <button>Start</button>
+  <button (click)="stoppen()">Stop</button>
+}
+
+<button (click)="reset()">Reset</button>
