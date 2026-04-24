@@ -17,7 +17,7 @@
           <td>
             <select [(ngModel)]="auswahl()[$index]">
               @for (fj of daten(); track $index) {
-                <option [disabled]="existiertBereits(fj)" [ngValue]="fj">{{ fj.name }}</option>
+                <option [ngValue]="fj">{{ fj.name }}</option>
               }
             </select>
           </td>
@@ -70,6 +70,29 @@
   <div id="staffel">
     <hr>
     <h3>Staffellauf: </h3>
+
+    <div id="datenStaffel">
+      <table>
+        <th>Nr:</th>
+        <th>Name:</th>
+
+        @for (d of nummernStaffel(); track $index) {
+          <tr>
+            <td>{{ d }}</td>
+            <td>
+              <select [(ngModel)]="auswahlStaffel()[$index]">
+                @for (fj of datenStaffel(); track $index) {
+                  <option [ngValue]="fj">{{ fj.name }}</option>
+                }
+              </select>
+            </td>
+
+          </tr>
+        }
+      </table>
+
+      <br>
+    </div>
 
     <label>Zeit: </label>
     <input id="zeit" type="number" min="0.0" step="0.01" [(ngModel)]="zeitStaffel">Sekunden

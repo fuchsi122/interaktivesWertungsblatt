@@ -1,9 +1,7 @@
-import {Component, ElementRef, signal, ViewChild} from '@angular/core';
+import {Component, signal} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FJ} from '../FJ';
-import html2canvas from 'html2canvas';
-import {jsPDF} from 'jspdf';
 import {Stopuhr} from '../stopuhr/stopuhr';
 
 @Component({
@@ -38,9 +36,7 @@ export class FJLA {
     new FJ("Franziska Winter", new Date(2014, 5, 13)),
     new FJ("Emelie Luger", new Date(2014, 5, 11)),
     new FJ("Nina Schimanko", new Date(2014, 3, 11)),
-    new FJ("Liam Weninger", new Date(2014, 1, 16)),
-    new FJ("Irene Scheichelbauer", new Date(2014,9,14)),
-    new FJ("Alex Bichler", new Date(2014,9,6))
+    new FJ("Irene Scheichelbauer", new Date(2014,9,14))
   ])
   // Speichert die Positionen, die es gibt
   nummern = signal([1,2,3,4,5,6,7,8,9,0])
@@ -117,6 +113,30 @@ export class FJLA {
     }
   }
 
+  // -------------------------------- Auswahl der Mitglieder für Staffellauf
+  // speichert die Auswahl zur Altersberechnung und wer welche Position läuft
+  auswahlStaffel = signal<(FJ)[]>(Array(10).fill(new FJ("", new Date())));
+  // Speichert die mitglieder die zur Auswahl stehen im Dropdown Menü
+  datenStaffel = signal([
+    new FJ("Karin Muhr", new Date(2011, 5, 24)),
+    new FJ("Lena Schimanko", new Date(2011, 1, 22)),
+    new FJ("Jonas Fuchs", new Date(2011, 4, 17)),
+    new FJ("Christoph Fuchs", new Date(2011, 4, 6)),
+    new FJ("Fabian Teucher", new Date(2012, 8, 23)),
+    new FJ("Lukas Roitner", new Date(2013, 0, 15)),
+    new FJ("Emelie Pfeiffer", new Date(2012, 10, 7)),
+    new FJ("Ilvy Pfeiffer", new Date(2013, 9, 20)),
+    new FJ("Nico Pfeiffer", new Date(2011, 5, 29)),
+    new FJ("Janina Winter", new Date(2011, 7, 31)),
+    new FJ("Clara Stuphan", new Date(2013, 11, 6)),
+    new FJ("Franziska Winter", new Date(2014, 5, 13)),
+    new FJ("Emelie Luger", new Date(2014, 5, 11)),
+    new FJ("Nina Schimanko", new Date(2014, 3, 11)),
+    new FJ("Irene Scheichelbauer", new Date(2014,9,14))
+  ])
+  // Speichert die Positionen, die es gibt
+  nummernStaffel = signal([1,2,3,4,5,6,7,8,9,0])
+
   // Speichert wer, welche Fehler wie oft gemacht hat
   fehlerzeileStaffel = signal([[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]])
   // Berechnet die Fehler pro Zeile und die gesamten Fehler
@@ -153,28 +173,6 @@ export class FJLA {
       return 68
     }
     return 0
-  }
-
-
-  // --------------------------------  Beenden und Neu starten
-  // Um, Seite dann als PDF zu speichern
-  @ViewChild('pageToSave', { static: false })
-  pageToSave!: ElementRef;
-
-  // Um die ausgefüllte Seite zu sichern
-  sichern() {
-    if (!this.pageToSave) return;
-
-    html2canvas(this.pageToSave.nativeElement, { scale: 2 }).then((canvas: HTMLCanvasElement) => {
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4');
-
-      const pdfWidth = 210;
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save('Wertungsblatt_FJLA.pdf');
-    });
   }
 
   // Setzt alles Zurück

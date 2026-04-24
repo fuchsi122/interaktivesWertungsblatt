@@ -1,9 +1,7 @@
-import {Component, ElementRef, signal, ViewChild} from '@angular/core';
+import {Component, signal} from '@angular/core';
 import {DatePipe} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FJ} from '../FJ';
-import html2canvas from 'html2canvas';
-import {jsPDF} from 'jspdf';
 import {Stopuhr} from '../stopuhr/stopuhr';
 
 @Component({
@@ -27,7 +25,6 @@ export class FJBA {
     new FJ("Richard Pugl", new Date(2015, 4, 17)),
     new FJ("Christoph Muhr", new Date(2015, 5, 22)),
     new FJ("Nogay Denktas", new Date(2015, 2, 17)),
-    new FJ("Irene Scheichelbauer", new Date(2014,9,14)),
     new FJ("Alex Bichler", new Date(2014,9,6))
   ])
 
@@ -72,27 +69,6 @@ export class FJBA {
     }
   }
 
-
-  // --------------------------------  Beenden und Neu starten
-  // um, die Seite dann als PDF zu speichern
-  @ViewChild('pageToSave', { static: false })
-  pageToSave!: ElementRef;
-
-  // Um die ausgefüllte Seite zu sichern
-  sichern() {
-    if (!this.pageToSave) return;
-
-    html2canvas(this.pageToSave.nativeElement, { scale: 2 }).then((canvas: HTMLCanvasElement) => {
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4');
-
-      const pdfWidth = 210;
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save('Wertungsblatt_FJBA.pdf');
-    });
-  }
   // Setzt alles Zurück
   zuruecksetzten() {
     this.auswahl.set(new FJ("", new Date()))
