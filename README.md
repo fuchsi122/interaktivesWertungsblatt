@@ -13,4 +13,5 @@ Zur leichteren Dokumentation von Übungen und Bewerben, von Ü12 und U12, für e
 <li><a href="https://jugend.feuerwehrjugend-noe.at/dl/WertungsblattFJLA.pdf">FJLA</a></li>
 
 ## Änderungen:
--FLJA/FJBA speichern Button geändert
+- FLJA/FJBA speichern Button geändert
+- 24.04.2026 - Daten aktualisiert, Aufstellung für Staffellauf hinzugefügt, Sicherungsfunktion
